@@ -1,0 +1,163 @@
+<!-- Right side column. Contains the navbar and content of the page -->
+<aside class="right-side">
+    <!-- Content Header (Page header) -->
+    <section class="content-header clearfix">
+        <h1>
+            <%= __("Ochsner Sport Club App") %>
+            <small><%= __("Dashboard") %></small>
+        </h1>
+
+    </section>
+
+    <!-- Main content -->
+    <section class="content dashboard">
+
+        <%- partial('blocks/server-validation.ejs') %>
+
+        <div id="embed-api-auth-container" class="google"></div>
+
+
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3 class="analytics-getActiveUsers">
+                            <i class="fa fa-gear fa-spin"></i>
+                        </h3>
+
+                        <p>
+                            <%= __("Active Users") %>
+                        </p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-ios-download"></i>
+                    </div>
+                    <a href="#" class="alertMe small-box-footer"> <%= __("Show more") %>
+                        <i class="fa fa-arrow-circle-right"></i> </a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        <h3 class="analytics-getAvailableCards">
+                            <i class="fa fa-gear fa-spin"></i>
+                        </h3>
+
+                        <p>
+                            <%= __("Card numbers available") %>
+                        </p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-card"></i>
+                    </div>
+                    <a href="#" class="alertMe small-box-footer"> <%= __("Show more") %>
+                        <i class="fa fa-arrow-circle-right"></i> </a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3 class="analytics-getSignUp">
+                            <i class="fa fa-gear fa-spin"></i>
+                        </h3>
+
+                        <p>
+                            <%= __("Sign ups") %>
+                        </p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-person-add"></i>
+                    </div>
+                    <a href="#" class="alertMe small-box-footer"> <%= __("Show more") %>
+                        <i class="fa fa-arrow-circle-right"></i> </a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h3 class="analytics-getSignIn">
+                            <i class="fa fa-gear fa-spin"></i>
+                        </h3>
+
+                        <p>
+                            <%= __("Sign ins") %>
+                        </p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-pie-graph"></i>
+                    </div>
+                    <a href="#" class="alertMe small-box-footer"> <%= __("Show more") %>
+                        <i class="fa fa-arrow-circle-right"></i> </a>
+                </div>
+            </div>
+            <!-- ./col -->
+        </div>
+        <!-- /.row -->
+
+        <!-- Main row -->
+        <div class="row">
+            <!-- Left col -->
+            <section class="col-lg-6">
+
+                <!-- Graph box -->
+                <div class="box box-solid">
+                    <div class="box-header">
+                        <i class="fa fa-line-chart"></i>
+
+                        <h3 class="box-title">
+                            <%= __("Sessions") %>
+                        </h3>
+                    </div>
+                    <div class="box-body box-charts">
+                        <div class="charts-preloader">
+                            <i class="fa fa-gear fa-spin"></i>
+                        </div>
+                        <canvas id="appSessions"></canvas>
+                    </div>
+                    <!-- /.box-body-->
+                </div>
+                <!-- /.box -->
+
+
+            </section>
+            <!-- /.Left col --><!-- right col (We are only adding the ID to make the widgets sortable)-->
+            <section class="col-lg-6">
+
+                <!-- Map box -->
+                <div class="box box-solid">
+                    <div class="box-header">
+                        <i class="fa fa-line-chart"></i>
+
+                        <h3 class="box-title">
+                            <%= __("Downloads") %> (<span class="totalDownloads"><i class="fa fa-gear fa-spin"></i></span>)
+                        </h3>
+                    </div>
+                    <div class="box-body box-charts">
+                        <div class="charts-preloader">
+                            <i class="fa fa-gear fa-spin"></i>
+                        </div>
+                        <canvas id="appDownloads"></canvas>
+                    </div>
+                    <!-- /.box-body-->
+                </div>
+                <!-- /.box -->
+
+
+            </section>
+            <!-- right col -->
+        </div>
+        <!-- /.row (main row) -->
+
+
+    </section>
+    <!-- /.content -->
+</aside>
+<!-- /.right-side -->

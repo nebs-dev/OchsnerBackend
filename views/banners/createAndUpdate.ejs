@@ -1,0 +1,149 @@
+<!-- Right side column. Contains the navbar and content of the page -->
+<aside class="right-side" xmlns="http://www.w3.org/1999/html">
+    <!-- Content Header (Page header) -->
+    <section class="content-header clearfix">
+        <h1>
+
+            <%
+            var action = "create";
+            var update = locals.update || false;
+            var forceUpdate = locals.forceUpdate || false;
+
+
+
+            if(update) {
+                action = "update";
+                banner.devices = banner.devices || {};
+            %>
+            <%= banner.title %>
+            <% } else { %>
+            <%= __("Create New Banner") %>
+            <% } %>
+            <small><%= __("languageLongName-" + language) %></small>
+
+        </h1>
+        <div class="header-actions">
+            <% if(checkPerms(req, "create", "banners")) { %>
+            <a class="btn btn-success btn-sm" href="/banners/<%= language %>/new"> <i class="fa fa-edit"></i>
+                <span><%= __("Add new") %></span> </a>
+            <% } %>
+        </div>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <%- partial('../blocks/modal-smallImage.ejs') %>
+        <%- partial('../blocks/server-validation.ejs') %>
+
+        <form action="/banners/<%= language %>/<%= action %>" enctype="multipart/form-data" method="post" class="validateForm">
+            <input type="hidden" name="language" value="<%= language %>">
+            <input type="hidden" name="_csrf" value="<%= _csrf %>">
+            <% if(update) { %>
+            <input type="hidden" name="id" value="<%= banner.id %>">
+            <% } %>
+
+            <!-- Start Metadata -->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Default box -->
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title"><%= __("Metadata") %></h3>
+
+                            <div class="box-tools pull-right">
+                                <% if (update) { %>
+                                <div class="label bg-green"><%= __("Published") %></div>
+                                <% } else { %>
+                                <div class="label bg-yellow"><%= __("Draft") %></div>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <p>
+                                        <%= __("Please enter a title and a target URL for this banner. Then you can add images for each iPhone screen size below.") %>
+                                    </p>
+
+                                    <div class="form-group">
+                                        <label for="bannerTitle"><%= __("Banner title") %></label>
+                                        <input <%= (update && !forceUpdate) ? "disabled" : "" %> value="<%= update ? banner.title : "" %>" name="title" type="text" class="form-control text-preview-title" id="bannerTitle" placeholder="<%= __("Enter a title for this banner") %>" required>
+
+                                        <p class="help-block"><%= __("This title is for use in the backend only. It will not be displayed inside the app.") %></p>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="targetURL"><%= __("Target URL") %></label>
+                                        <input <%= (update && !forceUpdate) ? "disabled" : "" %> value="<%= update ? banner.url : "" %>" name="url" type="text" class="form-control data-mask" id="targetURL" placeholder="http://" data-inputmask="'alias': 'url'" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="bannerDescription"><%= __("Description") %> - <span class="charCount"></span></label>
+                                        <textarea rows="3" maxlength="200" id="bannerDescription" name="description" class="charCountTextArea form-control updatePreviewDesc"  <%= (update && !forceUpdate) ? "disabled" : "" %> placeholder="<%= __("Place some text here") %>"><%= update ? banner.description : "" %></textarea>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-3 vertical-center-container text-center" style="height: 188px;">
+                                    <div class="vertical-center">
+
+                                        <% if(checkPerms(req, "update", "banners")) { %>
+                                        <button type="submit" class="btn btn-app editButton <%= (!update || (update && forceUpdate)) ? "hide" : "" %>">
+                                            <i class="fa fa-edit"></i> <%= __("Edit") %>
+                                        </button>
+                                        <% } %>
+
+                                        <% if(checkPerms(req, "create", "banners") || (update && checkPerms(req, "update", "banners"))) { %>
+                                        <button type="submit" class="btn btn-app saveButton cropperCheck <%= (update && !forceUpdate) ? "hide" : "" %>">
+                                            <i class="fa fa-save"></i> <%= __("Save") %>
+                                        </button>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- End Metadata -->
+
+
+
+            <%- partial('../blocks/cropper.ejs', {
+                currentQuery: update ? banner : {},
+                previewTemplate: "empty",
+                device: "iPhone6plus",
+                title: "iPhone 6 plus",
+                deviceWidth: 1080,
+                deviceHeight: 435
+            }) %>
+            <%- partial('../blocks/cropper.ejs', {
+                currentQuery: update ? banner : {},
+                previewTemplate: "empty",
+                device: "iPhone6",
+                title: "iPhone 6",
+                deviceWidth: 750,
+                deviceHeight: 302
+            }) %>
+            <%- partial('../blocks/cropper.ejs', {
+                currentQuery: update ? banner : {},
+                previewTemplate: "empty",
+                device: "iPhone5",
+                title: "iPhone 5",
+                deviceWidth: 640,
+                deviceHeight: 302
+            }) %>
+
+
+        </form>
+
+
+    </section>
+    <!-- /.content -->
+</aside>
+<!-- /.right-side -->

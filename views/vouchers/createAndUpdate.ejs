@@ -1,0 +1,270 @@
+<!-- Right side column. Contains the navbar and content of the page -->
+<aside class="right-side" xmlns="http://www.w3.org/1999/html">
+    <!-- Content Header (Page header) -->
+    <section class="content-header clearfix">
+        <h1>
+            <%
+            var action = "create";
+            var update = locals.update || false;
+            var forceUpdate = locals.forceUpdate || false;
+
+            if(update) {
+                action = "update";
+                voucher.devices = voucher.devices || {};
+            %>
+            <%= voucher.title %>
+            <% } else { %>
+            <%= __("Create New Voucher") %>
+            <% } %>
+
+        </h1>
+
+        <div class="header-actions">
+            <% if(checkPerms(req, "create", "vouchers")) { %>
+            <a class="btn btn-success btn-sm" href="/vouchers/new"> <i class="fa fa-edit"></i>
+                <span><%= __("Add new") %></span> </a>
+            <% } %>
+        </div>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <%- partial('../blocks/modal-smallImage.ejs') %>
+        <%- partial('../blocks/server-validation.ejs') %>
+
+        <form action="/vouchers/<%= action %>" enctype="multipart/form-data" method="post" class="validateForm">
+            <input type="hidden" name="_csrf" value="<%= _csrf %>">
+            <% if(update) { %>
+            <input type="hidden" name="id" value="<%= voucher.id %>">
+            <% } %>
+
+            <!-- Start Metadata -->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Default box -->
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title"><%= __("Metadata") %></h3>
+
+                            <div class="box-tools pull-right">
+                                <% if (update) { %>
+                                <div class="label bg-green"><%= __("Published") %></div>
+                                <% } else { %>
+                                <div class="label bg-yellow"><%= __("Draft") %></div>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <p>
+                                        <%= __("Please enter data for this voucher. Then you can add images for each iPhone screen size below.") %>
+                                    </p>
+
+                                    <div class="form-group">
+                                        <label for="voucherTitle"><%= __("Voucher title") %></label>
+                                        <input <%= (update && !forceUpdate) ? "disabled" : "" %> value="<%= update ? voucher.title : "" %>" name="title" type="text" class="form-control text-preview-title" id="voucherTitle" placeholder="<%= __("Enter a title for this voucher") %>" required>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <input value="<%= update ? "true" : "" %>" type="hidden" name="textReady[]" class="textReady" required>
+                                        <label for="voucherDescription"><%= __("Description") %></label>
+                                        <textarea id="voucherDescription" name="description" class="bootstrapEditor text-preview-description <%= (update && !forceUpdate) ? "disabled" : "" %>" placeholder="<%= __("Place some text here") %>"><%= update ? voucher.description : "" %></textarea>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group radio-group-switch <%= (update && !forceUpdate) ? "disabled" : "" %>">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <input <%= (update && voucher.benefitType == "fixed") ? "checked" : "" %> <%= (update && !forceUpdate) ? "disabled" : "" %> class="radio-switch" type="radio" name="benefitType" value="fixed" required>
+                                                    </span>
+                                                    <input <%= (update && !forceUpdate) ? "disabled" : "" %> value="<%= (update && voucher.benefitType == "fixed") ? voucher.benefit : "" %>" type="text" class="form-control radio-switched data-mask" name="benefit-fixed" placeholder="Fixed price benefit" data-inputmask="'mask': '9{1,}.|,99'">
+                                                    <span class="input-group-addon normalize">Fr</span>
+                                                </div>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <input <%= (update && voucher.benefitType == "percent") ? "checked" : "" %> <%= (update && !forceUpdate) ? "disabled" : "" %> class="radio-switch" type="radio" name="benefitType" value="percent" required>
+                                                    </span>
+                                                    <input <%= (update && !forceUpdate) ? "disabled" : "" %> value="<%= (update && voucher.benefitType == "percent") ? voucher.benefit : "" %>" type="text" class="form-control radio-switched data-mask" name="benefit-percent" placeholder="Percent benefit" data-inputmask="'mask': '9{1,2}%'">
+                                                    <span class="input-group-addon normalize">%</span>
+                                                </div>
+                                                <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <input <%= (update && voucher.benefitType == "other") ? "checked" : "" %> <%= (update && !forceUpdate) ? "disabled" : "" %> class="radio-switch" type="radio" name="benefitType" value="other" required>
+                                                </span>
+                                                    <input <%= (update && !forceUpdate) ? "disabled" : "" %> value="<%= (update && voucher.benefitType == "other") ? voucher.benefit : "" %>" type="text" class="form-control radio-switched" name="benefit-other" placeholder="Other benefit">
+                                                    <span class="input-group-addon normalize"><i class="fa fa-pencil"></i></span>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <!-- Date and time range -->
+                                        <div class="col-md-7">
+                                            <div class="form-group">
+                                                <label>Date and time range:</label>
+
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-clock-o"></i>
+                                                    </div>
+                                                    <input type="hidden" name="startDate" class="startDate" value="<%= (update && voucher.startDate) ? voucher.startDate : "" %>">
+                                                    <input type="hidden" name="endDate" class="endDate" value="<%= (update && voucher.endDate) ? voucher.endDate : "" %>">
+                                                    <input <%= (update && !forceUpdate) ? "disabled" : "" %> data-start="<%= (update && voucher.startDate) ? voucher.startDate : "" %>" data-end="<%= (update && voucher.endDate) ? voucher.endDate : "" %>" type="text" class="form-control pull-right dateAndRangePicker <%= (update && !forceUpdate) ? "disabled" : "" %>" readonly/>
+                                                </div>
+                                                <!-- /.input group -->
+                                            </div>
+                                            <!-- /.form group -->
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-3 vertical-center-container text-center" style="height: 188px;">
+                                    <div class="vertical-center">
+                                        <% if(checkPerms(req, "update", "vouchers")) { %>
+                                        <button type="submit" class="btn btn-app editButton <%= (!update || (update && forceUpdate)) ? "hide" : "" %>">
+                                            <i class="fa fa-edit"></i> <%= __("Edit") %>
+                                        </button>
+                                        <% } %>
+
+                                        <% if(checkPerms(req, "create", "vouchers") || (update && checkPerms(req, "update", "vouchers"))) { %>
+                                        <button type="submit" class="btn btn-app saveButton cropperCheck textareaCheck dateRangeCheck csvCheck <%= (update && !forceUpdate) ? "hide" : "" %>">
+                                            <i class="fa fa-save"></i> <%= __("Save") %>
+                                        </button>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- End Metadata -->
+
+
+            <!-- Start FilterData -->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Default box -->
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title"><%= __("Segmentation") %></h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input <%= (update && _.contains(voucher.filterGender, "female")) ? "checked" : "" %> <%= (update && !forceUpdate) ? "disabled" : "" %> name="filterGender" value="female" type="checkbox"> <%= __("Female") %>
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input <%= (update && _.contains(voucher.filterGender, "male")) ? "checked" : "" %> <%= (update && !forceUpdate) ? "disabled" : "" %> name="filterGender" value="male" type="checkbox"> <%= __("Male") %>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input <%= (update && _.contains(voucher.filterLanguage, "de")) ? "checked" : "" %> <%= (update && !forceUpdate) ? "disabled" : "" %> name="filterLanguage" value="de" type="checkbox"> <%= __("German") %>
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input <%= (update && _.contains(voucher.filterLanguage, "fr")) ? "checked" : "" %> <%= (update && !forceUpdate) ? "disabled" : "" %> name="filterLanguage" value="fr" type="checkbox"> <%= __("French") %>
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input <%= (update && _.contains(voucher.filterLanguage, "it")) ? "checked" : "" %> <%= (update && !forceUpdate) ? "disabled" : "" %> name="filterLanguage" value="it" type="checkbox"> <%= __("Italian") %>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <div class="row">
+
+                                        <select id="voucherStores" <%= (update && !forceUpdate) ? "disabled" : "" %> multiple name="filterStores" class="form-control select2" data-width="80%" data-placeholder="<%= __("Select stores") %>">
+                                            <% _.each(stores, function(store) { %>
+                                            <option <%= (update && _.contains(_.pluck(voucher.filterStores, "id"), store.id)) ? "selected" : "" %> value="<%= store.id %>"><%= store.title %></option>
+                                            <% }) %>
+                                        </select>
+
+                                        <input <%= (update && !forceUpdate) ? "disabled" : "" %> class="simple selectAll bootstrapToggle" type="checkbox" data-onstyle="success" data-on="<%= __("None") %>" data-off="<%= __("All") %>" data-toggle="toggle">
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <span class="btn btn-success btn-file">
+                                            <span class="csvUploadTxt"><i class="fa fa-file-text-o"></i> <%= __("Upload CSV card numbers") %></span>
+                                            <span class="hideIt csvProcessingTxt"><i class="fa fa-cog fa-spin"></i> <%= __("Processing...") %></span>
+                                            <input type="hidden" name="filterCards" id="csv-values" value="<%= (update && voucher.filterCards) ? "true" : "" %>">
+                                            <input <%= (update && !forceUpdate) ? "disabled" : "" %> id="csv-upload" type="file" accept=".csv">
+                                        </span>
+
+                                        <p id="csvStatus" class="<%= (update && voucher.filterCards) ? "" : "hideIt" %>"><span class="filterCardNo"><%= (update && voucher.filterCards) ? voucher.filterCards : "" %></span> <%= __("Cards parsed") %></p>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- End FilterData -->
+
+
+            <%- partial('../blocks/cropper.ejs', {
+                currentQuery: update ? voucher : {},
+                previewTemplate: "empty",
+                device: "iPhone6plus",
+                title: "iPhone 6 plus",
+                deviceWidth: 1080,
+                deviceHeight: 435
+            }) %>
+            <%- partial('../blocks/cropper.ejs', {
+                currentQuery: update ? voucher : {},
+                previewTemplate: "empty",
+                device: "iPhone6",
+                title: "iPhone 6",
+                deviceWidth: 750,
+                deviceHeight: 302
+            }) %>
+            <%- partial('../blocks/cropper.ejs', {
+                currentQuery: update ? voucher : {},
+                previewTemplate: "empty",
+                device: "iPhone5",
+                title: "iPhone 5",
+                deviceWidth: 640,
+                deviceHeight: 302
+            }) %>
+        </form>
+
+
+    </section>
+    <!-- /.content -->
+</aside>
+<!-- /.right-side -->

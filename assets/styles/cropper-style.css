@@ -1,0 +1,232 @@
+.cropContainer {
+    overflow: hidden;
+}
+
+.cropPreviewContainer {
+    position: relative;
+    background-repeat: no-repeat;
+}
+
+.cropperStatus {
+    padding: 5px 5px 0 0;
+}
+
+.preview-object-text {
+    overflow: hidden;
+    position: absolute;
+}
+
+
+/****************************
+*  iPhone5 cropping styles  *
+*****************************/
+
+.cropPreviewContainer.iPhone5 .preview-object-text .preview-title {
+    color: #134391;
+    font-size: 10px !important;
+}
+
+.cropPreviewContainer.iPhone5 .preview-object-text .preview-description {
+    font-size: 8px !important;
+}
+
+.cropPreviewContainer.iPhone5 .preview-object-text .preview-description h1{
+    font-size: 10px !important;
+    font-weight: bold;
+}
+
+
+/* holds background image and over that is preview */
+.cropPreviewContainer.empty.iPhone5 {
+    width: 296px;
+    height: 514px;
+    background-image: url('/images/iPhone5-empty-bordered.png');
+}
+
+/* overlay image where magic happens */
+.cropPreviewContainer.empty.iPhone5 .iPhone5-preview {
+    position: absolute;
+    left: 52px;
+    top: 111px;
+    width: 186px;
+    height: 88px;
+    overflow: hidden;
+}
+
+/* text preview */
+.cropPreviewContainer.empty.iPhone5 .preview-object-text {
+    top: 200px;
+    left: 52px;
+    width: 186px;
+    padding: 3px;
+    height: 170px;
+}
+
+
+/* holds background image and over that is preview */
+.cropPreviewContainer.home.iPhone5 {
+    width: 296px;
+    height: 514px;
+    background-image: url('/images/iPhone5-home-bordered.png');
+}
+
+/* overlay image where magic happens */
+.cropPreviewContainer.home.iPhone5 .iPhone5-preview {
+    position: absolute;
+    left: 52px;
+    top: 168px;
+    width: 186px;
+    height: 88px;
+    overflow: hidden;
+}
+
+/* text preview */
+.cropPreviewContainer.home.iPhone5 .preview-object-text {
+    top: 210px;
+    left: 52px;
+    width: 186px;
+    padding: 3px;
+    height: 170px;
+}
+
+/****************************
+*  iPhone6 cropping styles  *
+*****************************/
+.cropPreviewContainer.iPhone6 .preview-object-text .preview-title {
+    color: #134391;
+    font-size: 11px !important;
+}
+
+.cropPreviewContainer.iPhone6 .preview-object-text .preview-description {
+    font-size: 9px !important;
+}
+
+.cropPreviewContainer.iPhone6 .preview-object-text .preview-description h1{
+    font-size: 11px !important;
+    font-weight: bold;
+}
+
+
+/* holds background image and over that is preview */
+.cropPreviewContainer.empty.iPhone6 {
+    width: 347px;
+    height: 608px;
+    background-image: url('/images/iPhone6-empty-bordered.png');
+}
+
+/* overlay image where magic happens */
+.cropPreviewContainer.empty.iPhone6 .iPhone6-preview {
+    position: absolute;
+    left: 52px;
+    top: 112px;
+    width: 236px;
+    height: 95px;
+    overflow: hidden;
+}
+
+/* text preview */
+.cropPreviewContainer.empty.iPhone6 .preview-object-text {
+    top: 210px;
+    left: 52px;
+    width: 236px;
+    padding: 5px;
+    height: 250px;
+}
+
+/* holds background image and over that is preview */
+.cropPreviewContainer.home.iPhone6 {
+    width: 347px;
+    height: 608px;
+    background-image: url('/images/iPhone6-home-bordered.png');
+}
+
+/* overlay image where magic happens */
+.cropPreviewContainer.home.iPhone6 .iPhone6-preview {
+    position: absolute;
+    left: 52px;
+    top: 174px;
+    width: 236px;
+    height: 95px;
+    overflow: hidden;
+}
+
+/* text preview */
+.cropPreviewContainer.home.iPhone6 .preview-object-text {
+    top: 210px;
+    left: 52px;
+    width: 236px;
+    padding: 5px;
+    height: 250px;
+}
+
+/****************************
+*  iPhone6plus cropping styles  *
+*****************************/
+
+.cropPreviewContainer.iPhone6plus .preview-object-text .preview-title {
+    color: #134391;
+    font-size: 13px !important;
+}
+
+.cropPreviewContainer.iPhone6plus .preview-object-text .preview-description {
+    font-size: 11px !important;
+}
+
+.cropPreviewContainer.iPhone6plus .preview-object-text .preview-description h1{
+    font-size: 13px !important;
+    font-weight: bold;
+}
+
+
+
+/* holds background image and over that is preview */
+.cropPreviewContainer.empty.iPhone6plus {
+    width: 400px;
+    height: 734px;
+    background-image: url('/images/iPhone6plus-empty-bordered.png');
+}
+
+/* overlay image where magic happens */
+.cropPreviewContainer.empty.iPhone6plus .iPhone6plus-preview {
+    position: absolute;
+    left: 50px;
+    top: 131px;
+    width: 297px;
+    height: 120px;
+    overflow: hidden;
+}
+
+/* text preview */
+.cropPreviewContainer.empty.iPhone6plus .preview-object-text {
+    top: 255px;
+    left: 50px;
+    width: 297px;
+    padding: 8px;
+    height: 330px;
+}
+
+/* holds background image and over that is preview */
+.cropPreviewContainer.home.iPhone6plus {
+    width: 400px;
+    height: 734px;
+    background-image: url('/images/iPhone6plus-home-bordered.png');
+}
+
+/* overlay image where magic happens */
+.cropPreviewContainer.home.iPhone6plus .iPhone6plus-preview {
+    position: absolute;
+    left: 50px;
+    top: 195px;
+    width: 297px;
+    height: 120px;
+    overflow: hidden;
+}
+
+/* text preview */
+.cropPreviewContainer.home.iPhone6plus .preview-object-text {
+    top: 240px;
+    left: 50px;
+    width: 297px;
+    padding: 8px;
+    height: 330px;
+}

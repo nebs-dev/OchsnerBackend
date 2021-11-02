@@ -1,0 +1,12 @@
+<div class="modal-destroy avgrund hideIt">
+    <div class="avgrund-container">
+        <h4><%= __('Are you sure?') %></h4>
+
+        <p><%= __('All content will be lost...') %></p>
+
+        <div class="button-holder">
+            <button class="btn btn-default" onclick='$(".avgrund-close").click();'><%= __('Cancel') %></button>
+            <button class="btn btn-danger" onclick='document.avgrundAnswer = true; $(".avgrund-close").click();'><%= __('Delete') %></button>
+        </div>
+    </div>
+</div>

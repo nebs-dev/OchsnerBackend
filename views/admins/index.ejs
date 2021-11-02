@@ -1,0 +1,97 @@
+<!-- Right side column. Contains the navbar and content of the page -->
+<aside class="right-side">
+    <!-- Content Header (Page header) -->
+    <section class="content-header clearfix">
+        <h1>
+            <%= __("Admins") %>
+            <small></small>
+        </h1>
+        <div class="header-actions">
+            <% if(checkPerms(req, "create", "admins")) { %>
+            <a class="btn btn-success btn-sm" href="/admins/new"> <i class="fa fa-edit"></i>
+                <span><%= __("Add new") %></span> </a>
+            <% } %>
+        </div>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <%- partial('../blocks/modal-destroy.ejs') %>
+        <%- partial('../blocks/server-validation.ejs') %>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table table-hover table-sorter" data-csfr="<%= _csrf %>" data-update="/admins/sort">
+                            <tr>
+                                <% if(checkPerms(req, "update", "admins")) { %>
+                                <th><%= __("Sort") %></th>
+                                <% } %>
+                                <th><%= __("Avatar") %></th>
+                                <th><%= __("Name") %></th>
+                                <th><%= __("Email") %></th>
+                                <th><%= __("Role") %></th>
+                                <th class="table-actions"><%= __("Actions") %></th>
+                            </tr>
+                            <% _.each(admins, function(admin) { %>
+                            <tr class="sortable-item" id="<%= admin.id %>">
+                                <% if(checkPerms(req, "update", "admins")) { %>
+                                <td class="table-sort-handle enabled">
+                                    <span class="sortDone"><i class="fa fa-arrows-v"></i></span>
+                                    <span class="sortProgress hideIt"><i class="fa fa-cog fa-spin"></i></span>
+                                </td>
+                                <% } %>
+                                <td class="table-thumbnail">
+                                    <% if(checkPerms(req, "view", "admins")) { %>
+                                    <a href="/admins/<%= admin.username %>">
+                                        <img src="http://www.gravatar.com/avatar/<%= admin.avatar %>" alt="User Image"/>
+                                    </a>
+                                    <% } else { %>
+                                    <img src="http://www.gravatar.com/avatar/<%= admin.avatar %>" alt="User Image"/>
+                                    <% } %>
+                                </td>
+                                <td class="table-name">
+                                    <% if(checkPerms(req, "view", "admins")) { %>
+                                    <a href="/admins/<%= admin.username %>"><%= admin.name %> <%= admin.surname %></a>
+                                    <% } else { %>
+                                    <%= admin.name %> <%= admin.surname %>
+                                    <% } %>
+                                </td>
+                                <td class="table-email">
+                                    <a href="mailto:<%= admin.email %>"><%= admin.email %></a>
+                                </td>
+                                <td class="table-role">
+                                    <%= admin.superAdmin ? "Super Admin" : admin.permissions.title %>
+                                </td>
+                                <td class="table-actions">
+                                    <% if(checkPerms(req, "update", "admins")) { %>
+                                    <% if (!admin.superAdmin || req.session.Admin.superAdmin) { %>
+                                    <a class="btn btn-success btn-sm" href="/admins/<%= admin.username %>?update=true">
+                                        <i class="fa fa-edit"></i> <span><%= __("Edit") %></span> </a>
+                                    <% } %>
+                                    <% } %>
+
+                                    <% if(checkPerms(req, "delete", "admins") && req.session.Admin.id != admin.id) { %>
+                                    <% if (!admin.superAdmin || req.session.Admin.superAdmin) { %>
+                                    <a class="btn btn-danger btn-sm deleteObj" data-delete="/admins/delete/<%= admin.id %>" href="#">
+                                        <i class="fa fa-trash-o"></i> <span><%= __("Delete") %></span> </a>
+                                    <% } %>
+                                    <% } %>
+
+                                </td>
+                            </tr>
+                            <% }); %>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+
+
+    </section>
+    <!-- /.content -->
+</aside>
+<!-- /.right-side -->

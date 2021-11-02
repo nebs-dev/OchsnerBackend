@@ -1,0 +1,30 @@
+/* differs from .hide in LTE cause this one is not !important */
+.hideIt {
+    display: none;
+}
+
+.login-logo {
+    height: 60px;
+}
+
+.ochsnerBlue-opacity {
+    background: rgba(16, 83, 177, 0.8) !important;
+}
+
+.ochsnerGray-opacity {
+    background: rgba(234, 234, 238, 0.8) !important;
+}
+
+.box-charts {
+    min-height: 150px;
+    width: 95%;
+    margin: 0 auto;
+}
+
+.charts-preloader {
+    /* dirty center... no need for js centring cause of loadtime */
+    position: absolute;
+    top: 40%;
+    left: 47%;
+    font-size: 40px;
+}

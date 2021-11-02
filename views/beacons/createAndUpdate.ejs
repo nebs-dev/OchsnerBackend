@@ -1,0 +1,141 @@
+<!-- Right side column. Contains the navbar and content of the page -->
+<aside class="right-side" xmlns="http://www.w3.org/1999/html">
+    <!-- Content Header (Page header) -->
+    <section class="content-header clearfix">
+        <h1>
+
+            <%
+            var action = "create";
+            var update = locals.update || false;
+            var forceUpdate = locals.forceUpdate || false;
+
+
+
+            if(update) {
+                action = "update";
+            %>
+            <%= beacon.title %>
+            <% } else { %>
+            <%= __("Create New Beacon") %>
+            <% } %>
+            <small></small>
+
+        </h1>
+        <div class="header-actions">
+            <% if(checkPerms(req, "create", "beacons")) { %>
+            <a class="btn btn-success btn-sm" href="/beacons/new"> <i class="fa fa-edit"></i>
+                <span><%= __("Add new") %></span> </a>
+            <% } %>
+        </div>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <%- partial('../blocks/modal-smallImage.ejs') %>
+        <%- partial('../blocks/server-validation.ejs') %>
+
+        <form action="/beacons/<%= action %>" enctype="multipart/form-data" method="post" class="validateForm">
+            <input type="hidden" name="_csrf" value="<%= _csrf %>">
+            <% if(update) { %>
+            <input type="hidden" name="id" value="<%= beacon.id %>">
+            <% } %>
+
+            <!-- Start Metadata -->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Default box -->
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title"><%= __("Metadata") %></h3>
+
+                            <div class="box-tools pull-right">
+                                <% if (update) { %>
+                                <div class="label bg-green"><%= __("Published") %></div>
+                                <% } else { %>
+                                <div class="label bg-yellow"><%= __("Draft") %></div>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-9">
+
+                                    <div class="form-group">
+                                        <label for="beaconTitle"><%= __("Beacon title") %></label>
+                                        <input <%= (update && !forceUpdate) ? "disabled" : "" %> value="<%= update ? beacon.title : "" %>" name="title" type="text" class="form-control" id="beaconTitle" placeholder="<%= __("Enter a title for this beacon") %>" required>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="beaconStore"><%= __("Select Store") %></label>
+                                        <select <%= (update && !forceUpdate) ? "disabled" : "" %> name="store" class="form-control select2" required>
+                                            <option value=""><%= __("Select store") %></option>
+                                            <% _.each(stores, function(store) { %>
+                                            <option <%= (update && beacon.store === store.id) ? "selected" : "" %> value="<%= store.id %>"><%= store.title %></option>
+                                            <% }); %>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="beaconUuid"><%= __("Beacon UUID") %></label>
+                                        <input <%= (update && !forceUpdate) ? "disabled" : "" %> value="<%= update ? beacon.uuid : "" %>" name="uuid" type="text" class="form-control" id="beaconUuid" placeholder="<%= __("Enter UUID for this beacon") %>" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="beaconMajorId"><%= __("Beacon major ID") %></label>
+                                        <input <%= (update && !forceUpdate) ? "disabled" : "" %> value="<%= update ? beacon.majorId : "" %>" name="majorId" type="number" class="form-control" id="beaconMajorId" placeholder="<%= __("Enter major ID for this beacon") %>" required>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="beaconMinorId"><%= __("Beacon minor ID") %></label>
+                                        <input <%= (update && !forceUpdate) ? "disabled" : "" %> value="<%= update ? beacon.minorId : "" %>" name="minorId" type="number" class="form-control" id="beaconMinorId" placeholder="<%= __("Enter minor ID for this beacon") %>" required>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="beaconVoucher"><%= __("Select Voucher") %></label>
+                                        <select <%= (update && !forceUpdate) ? "disabled" : "" %> name="voucher" class="form-control select2" required>
+                                            <option value=""><%= __("Select voucher") %></option>
+                                            <% _.each(vouchers, function(voucher) { %>
+                                            <option <%= (update && beacon.voucher === voucher.id) ? "selected" : "" %> value="<%= voucher.id %>"><%= voucher.title %></option>
+                                            <% }); %>
+                                        </select>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-3 vertical-center-container text-center" style="height: 188px;">
+                                    <div class="vertical-center">
+                                        <% if(checkPerms(req, "update", "beacons")) { %>
+                                        <button type="submit" class="btn btn-app editButton <%= (!update || (update && forceUpdate)) ? "hide" : "" %>">
+                                            <i class="fa fa-edit"></i> <%= __("Edit") %>
+                                        </button>
+                                        <% } %>
+
+                                        <% if(checkPerms(req, "create", "beacons") || (update && checkPerms(req, "update", "beacons"))) { %>
+                                        <button type="submit" class="btn btn-app saveButton <%= (update && !forceUpdate) ? "hide" : "" %>">
+                                            <i class="fa fa-save"></i> <%= __("Save") %>
+                                        </button>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- End Metadata -->
+        </form>
+
+
+    </section>
+    <!-- /.content -->
+</aside>
+<!-- /.right-side -->

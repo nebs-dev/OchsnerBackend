@@ -1,0 +1,68 @@
+.vertical-center-container {
+    display: table;
+    table-layout: fixed;
+}
+
+.vertical-center {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.form-group.has-textarea-error iframe {
+    border: 1px solid #f56954 !important;
+}
+
+.form-group.has-textarea-error label {
+    color: #f56954;
+}
+
+.form-group.has-textarea-error .form-control {
+    border-color: #f56954 !important;
+    box-shadow: none;
+}
+
+.form-control[readonly] {
+    cursor: text !important;
+    background-color: #fff !important;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.input-group-addon.normalize {
+    width: 40px;
+    text-align: center;
+}
+
+.form-control[readonly].disabled {
+    background-color: #eee !important;
+    cursor: not-allowed !important;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+}

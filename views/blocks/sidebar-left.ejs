@@ -1,0 +1,242 @@
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="left-side sidebar-offcanvas">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img src="http://www.gravatar.com/avatar/<%= session.gravatar %>" class="img-circle"/>
+            </div>
+            <div class="pull-left info">
+                <p><%= __("Hello") %>, <%= session.Admin.name %></p>
+
+                <a href="#"><i class="fa fa-circle text-success"></i> <%= session.Admin.role %></a>
+            </div>
+        </div>
+
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu">
+            <li class="<%= (req.path == "/") ? 'active' : '' %>">
+                <a href="/"> <i class="fa fa-dashboard"></i> <span><%= __("Dashboard") %></span> </a>
+            </li>
+
+            <% if(checkPerms(req, "view", "teasers")) { %>
+            <li class="treeview <%= (req.path.split("/")[1] == "teasers") ? 'active' : '' %>">
+                <a href="#"> <i class="fa fa-picture-o"></i> <span><%= __("Teasers") %></span>
+                    <i class="fa fa-angle-left pull-right"></i> </a>
+                <ul class="treeview-menu">
+                    <li class="<%= (req.path.match("/teasers/de")) ? 'active' : '' %>">
+                        <a href="/teasers/de"><i class="fa fa-angle-double-right"></i> <%= __("German") %></a>
+                    </li>
+                    <li class="<%= (req.path.match("/teasers/fr")) ? 'active' : '' %>">
+                        <a href="/teasers/fr"><i class="fa fa-angle-double-right"></i> <%= __("French") %></a>
+                    </li>
+                    <li class="<%= (req.path.match("/teasers/it")) ? 'active' : '' %>">
+                        <a href="/teasers/it"><i class="fa fa-angle-double-right"></i> <%= __("Italian") %></a>
+                    </li>
+                </ul>
+            </li>
+            <% } %>
+
+            <% if(checkPerms(req, "view", "offers")) { %>
+            <li class="treeview <%= (req.path.split("/")[1] == "offers") ? 'active' : '' %>">
+                <a href="#"> <i class="fa fa-edit"></i> <span><%= __("Offers") %></span>
+                    <i class="fa fa-angle-left pull-right"></i> </a>
+                <ul class="treeview-menu">
+                    <li class="<%= (req.path.match("/offers/de")) ? 'active' : '' %>">
+                        <a href="/offers/de"><i class="fa fa-angle-double-right"></i> <%= __("German") %></a>
+                    </li>
+                    <li class="<%= (req.path.match("/offers/fr")) ? 'active' : '' %>">
+                        <a href="/offers/fr"><i class="fa fa-angle-double-right"></i> <%= __("French") %></a>
+                    </li>
+                    <li class="<%= (req.path.match("/offers/it")) ? 'active' : '' %>">
+                        <a href="/offers/it"><i class="fa fa-angle-double-right"></i> <%= __("Italian") %></a>
+                    </li>
+                </ul>
+            </li>
+            <% } %>
+
+            <% if(checkPerms(req, "view", "competitions")) { %>
+            <li class="treeview <%= (req.path.split("/")[1] == "competitions") ? 'active' : '' %>">
+                <a href="#"> <i class="fa fa-edit"></i> <span><%= __("Competitions") %></span>
+                    <i class="fa fa-angle-left pull-right"></i> </a>
+                <ul class="treeview-menu">
+                    <li class="<%= (req.path.match("/competitions/de")) ? 'active' : '' %>">
+                        <a href="/competitions/de"><i class="fa fa-angle-double-right"></i> <%= __("German") %></a>
+                    </li>
+                    <li class="<%= (req.path.match("/competitions/fr")) ? 'active' : '' %>">
+                        <a href="/competitions/fr"><i class="fa fa-angle-double-right"></i> <%= __("French") %></a>
+                    </li>
+                    <li class="<%= (req.path.match("/competitions/it")) ? 'active' : '' %>">
+                        <a href="/competitions/it"><i class="fa fa-angle-double-right"></i> <%= __("Italian") %></a>
+                    </li>
+                </ul>
+            </li>
+            <% } %>
+
+            <% if(checkPerms(req, "view", "onboarding")) { %>
+            <li class="treeview <%= (req.path.split("/")[1] == "onboarding") ? 'active' : '' %>">
+                <a href="#"> <i class="fa fa-edit"></i> <span><%= __("Onboarding") %></span>
+                    <i class="fa fa-angle-left pull-right"></i> </a>
+                <ul class="treeview-menu">
+                    <li class="<%= (req.path.match("/onboarding/de")) ? 'active' : '' %>">
+                        <a href="/onboarding/de"><i class="fa fa-angle-double-right"></i> <%= __("German") %></a>
+                    </li>
+                    <li class="<%= (req.path.match("/onboarding/fr")) ? 'active' : '' %>">
+                        <a href="/onboarding/fr"><i class="fa fa-angle-double-right"></i> <%= __("French") %></a>
+                    </li>
+                    <li class="<%= (req.path.match("/onboarding/it")) ? 'active' : '' %>">
+                        <a href="/onboarding/it"><i class="fa fa-angle-double-right"></i> <%= __("Italian") %></a>
+                    </li>
+                </ul>
+            </li>
+            <% } %>
+
+
+            <% if(checkPerms(req, "view", "banners")) { %>
+            <li class="treeview <%= (req.path.split("/")[1] == "banners") ? 'active' : '' %>">
+                <a href="#"> <i class="fa fa-edit"></i> <span><%= __("Banners") %></span>
+                    <i class="fa fa-angle-left pull-right"></i> </a>
+                <ul class="treeview-menu">
+                    <li class="<%= (req.path.match("/banners/de")) ? 'active' : '' %>">
+                        <a href="/banners/de"><i class="fa fa-angle-double-right"></i> <%= __("German") %></a>
+                    </li>
+                    <li class="<%= (req.path.match("/banners/fr")) ? 'active' : '' %>">
+                        <a href="/banners/fr"><i class="fa fa-angle-double-right"></i> <%= __("French") %></a>
+                    </li>
+                    <li class="<%= (req.path.match("/banners/it")) ? 'active' : '' %>">
+                        <a href="/banners/it"><i class="fa fa-angle-double-right"></i> <%= __("Italian") %></a>
+                    </li>
+                </ul>
+            </li>
+            <% } %>
+
+
+            <% if(checkPerms(req, "view", "dailymessages")) { %>
+            <li class="treeview <%= (req.path.split("/")[1] == "messages") ? 'active' : '' %>">
+                <a href="#"> <i class="fa fa-edit"></i> <span><%= __("Daily messages") %></span>
+                    <i class="fa fa-angle-left pull-right"></i> </a>
+                <ul class="treeview-menu">
+                    <li class="<%= (req.path.match("/messages/de")) ? 'active' : '' %>">
+                        <a href="/messages/de"><i class="fa fa-angle-double-right"></i> <%= __("German") %></a>
+                    </li>
+                    <li class="<%= (req.path.match("/messages/fr")) ? 'active' : '' %>">
+                        <a href="/messages/fr"><i class="fa fa-angle-double-right"></i> <%= __("French") %></a>
+                    </li>
+                    <li class="<%= (req.path.match("/messages/it")) ? 'active' : '' %>">
+                        <a href="/messages/it"><i class="fa fa-angle-double-right"></i> <%= __("Italian") %></a>
+                    </li>
+                </ul>
+            </li>
+            <% } %>
+
+            <% if(checkPerms(req, "view", "dailytips")) { %>
+            <li class="treeview <%= (req.path.split("/")[1] == "tips") ? 'active' : '' %>">
+                <a href="#"> <i class="fa fa-edit"></i> <span><%= __("Daily tips") %></span>
+                    <i class="fa fa-angle-left pull-right"></i> </a>
+                <ul class="treeview-menu">
+                    <li class="<%= (req.path.match("/tips/de")) ? 'active' : '' %>">
+                        <a href="/tips/de"><i class="fa fa-angle-double-right"></i> <%= __("German") %></a>
+                    </li>
+                    <li class="<%= (req.path.match("/tips/fr")) ? 'active' : '' %>">
+                        <a href="/tips/fr"><i class="fa fa-angle-double-right"></i> <%= __("French") %></a>
+                    </li>
+                    <li class="<%= (req.path.match("/tips/it")) ? 'active' : '' %>">
+                        <a href="/tips/it"><i class="fa fa-angle-double-right"></i> <%= __("Italian") %></a>
+                    </li>
+                </ul>
+            </li>
+            <% } %>
+
+
+
+
+            <% if(checkPerms(req, "view", "terms")) { %>
+            <li class="treeview <%= (req.path.split("/")[1] == "terms") ? 'active' : '' %>">
+                <a href="#"> <i class="fa fa-legal"></i> <span><%= __("Terms") %></span>
+                    <i class="fa fa-angle-left pull-right"></i> </a>
+                <ul class="treeview-menu">
+                    <li class="<%= (req.path.match("/terms/de")) ? 'active' : '' %>">
+                        <a href="/terms/de"><i class="fa fa-angle-double-right"></i> <%= __("German") %></a>
+                    </li>
+                    <li class="<%= (req.path.match("/terms/fr")) ? 'active' : '' %>">
+                        <a href="/terms/fr"><i class="fa fa-angle-double-right"></i> <%= __("French") %></a>
+                    </li>
+                    <li class="<%= (req.path.match("/terms/it")) ? 'active' : '' %>">
+                        <a href="/terms/it"><i class="fa fa-angle-double-right"></i> <%= __("Italian") %></a>
+                    </li>
+                </ul>
+            </li>
+            <% } %>
+
+            <% if(checkPerms(req, "view", "impressum")) { %>
+            <li class="treeview <%= (req.path.split("/")[1] == "impressum") ? 'active' : '' %>">
+                <a href="#"> <i class="fa fa-file-text-o"></i> <span><%= __("Impressum") %></span>
+                    <i class="fa fa-angle-left pull-right"></i> </a>
+                <ul class="treeview-menu">
+                    <li class="<%= (req.path.match("/impressum/de")) ? 'active' : '' %>">
+                        <a href="/impressum/de"><i class="fa fa-angle-double-right"></i> <%= __("German") %></a>
+                    </li>
+                    <li class="<%= (req.path.match("/impressum/fr")) ? 'active' : '' %>">
+                        <a href="/impressum/fr"><i class="fa fa-angle-double-right"></i> <%= __("French") %></a>
+                    </li>
+                    <li class="<%= (req.path.match("/impressum/it")) ? 'active' : '' %>">
+                        <a href="/impressum/it"><i class="fa fa-angle-double-right"></i> <%= __("Italian") %></a>
+                    </li>
+                </ul>
+            </li>
+            <% } %>
+
+
+            <% if(checkPerms(req, "view", "appOptions")) { %>
+            <li class="treeview <%= (req.path.split("/")[1] == "appOptions") ? 'active' : '' %>">
+                <a href="#"> <i class="fa fa-file-text-o"></i> <span><%= __("App Options") %></span>
+                    <i class="fa fa-angle-left pull-right"></i> </a>
+                <ul class="treeview-menu">
+                    <li class="<%= (req.path.match("/appOptions/de")) ? 'active' : '' %>">
+                        <a href="/appOptions/de"><i class="fa fa-angle-double-right"></i> <%= __("German") %></a>
+                    </li>
+                    <li class="<%= (req.path.match("/appOptions/fr")) ? 'active' : '' %>">
+                        <a href="/appOptions/fr"><i class="fa fa-angle-double-right"></i> <%= __("French") %></a>
+                    </li>
+                    <li class="<%= (req.path.match("/appOptions/it")) ? 'active' : '' %>">
+                        <a href="/appOptions/it"><i class="fa fa-angle-double-right"></i> <%= __("Italian") %></a>
+                    </li>
+                </ul>
+            </li>
+            <% } %>
+
+            <% if(checkPerms(req, "view", "vouchers")) { %>
+            <li class="<%= (req.path.split("/")[1] == "vouchers") ? 'active' : '' %>">
+                <a href="/vouchers"> <i class="fa fa-edit"></i> <span><%= __("Vouchers") %></span> </a>
+            </li>
+            <% } %>
+
+            <% if(checkPerms(req, "view", "stores")) { %>
+            <li class="<%= (req.path.split("/")[1] == "stores") ? 'active' : '' %>">
+                <a href="/stores"> <i class="fa fa-home"></i> <span><%= __("Stores") %></span> </a>
+            </li>
+            <% } %>
+
+            <% if(checkPerms(req, "view", "beacons")) { %>
+            <li class="<%= (req.path.split("/")[1] == "beacons") ? 'active' : '' %>">
+                <a href="/beacons"> <i class="fa fa-edit"></i> <span><%= __("Beacons") %></span> </a>
+            </li>
+            <% } %>
+
+            <% if(checkPerms(req, "view", "admins")) { %>
+            <li class="<%= (req.path.split("/")[1] == "admins") ? 'active' : '' %>">
+                <a href="/admins"> <i class="fa fa-user"></i> <span><%= __("Admins") %></span> </a>
+            </li>
+            <% } %>
+
+            <% if(checkPerms(req, "view", "perrmissions")) { %>
+            <li class="<%= (req.path.split("/")[1] == "permissions") ? 'active' : '' %>">
+                <a href="/permissions"> <i class="fa fa-edit"></i> <span><%= __("Permissions") %></span> </a>
+            </li>
+            <% } %>
+
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>

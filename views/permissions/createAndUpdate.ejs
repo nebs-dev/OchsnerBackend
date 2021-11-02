@@ -1,0 +1,104 @@
+<!-- Right side column. Contains the navbar and content of the page -->
+<aside class="right-side" xmlns="http://www.w3.org/1999/html">
+    <!-- Content Header (Page header) -->
+    <section class="content-header clearfix">
+        <h1>
+
+            <%
+            var action = "create";
+            var update = locals.update || false;
+            var forceUpdate = locals.forceUpdate || false;
+
+
+
+            if(update) {
+                action = "update";
+            %>
+            <%= permission.title %>
+            <% } else { %>
+            <%= __("Create New Permission") %>
+            <% } %>
+            <small></small>
+
+        </h1>
+        <div class="header-actions">
+            <% if(checkPerms(req, "create", "permissions")) { %>
+            <a class="btn btn-success btn-sm" href="/permissions/new"> <i class="fa fa-edit"></i>
+                <span><%= __("Add new") %></span> </a>
+            <% } %>
+        </div>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <%- partial('../blocks/modal-smallImage.ejs') %>
+        <%- partial('../blocks/server-validation.ejs') %>
+
+        <form action="/permissions/<%= action %>" enctype="multipart/form-data" method="post" class="validateForm">
+            <input type="hidden" name="_csrf" value="<%= _csrf %>">
+            <% if(update) { %>
+            <input type="hidden" name="id" value="<%= permission.id %>">
+            <% } %>
+
+            <!-- Start Metadata -->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Default box -->
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title"><%= __("Metadata") %></h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-9">
+
+                                    <div class="form-group">
+                                        <label for="permissionTitle"><%= __("Permission title") %></label>
+                                        <input <%= (update && !forceUpdate) ? "disabled" : "" %> value="<%= update ? permission.title : "" %>" name="title" type="text" class="form-control" id="permissionTitle" placeholder="<%= __("Enter a title for this permission") %>" required>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-md-3 vertical-center-container text-center" style="height: 188px;">
+                                    <div class="vertical-center">
+                                        <% if(checkPerms(req, "update", "permissions")) { %>
+                                        <button type="submit" class="btn btn-app editButton <%= (!update || (update && forceUpdate)) ? "hide" : "" %>">
+                                            <i class="fa fa-edit"></i> <%= __("Edit") %>
+                                        </button>
+                                        <% } %>
+
+                                        <% if(checkPerms(req, "create", "permissions") || (update && checkPerms(req, "update", "permissions"))) { %>
+                                        <button type="submit" class="btn btn-app saveButton <%= (update && !forceUpdate) ? "hide" : "" %>">
+                                            <i class="fa fa-save"></i> <%= __("Save") %>
+                                        </button>
+                                        <% } %>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- End Metadata -->
+        </form>
+
+        <% if(update && checkPerms(req, "delete", "permissions")) { %>
+        <form action="/permissions/delete/<%= permission.id %>" method="post">
+            <input type="hidden" name="_csrf" value="<%= _csrf %>">
+
+            <button type="submit" class="btn btn-danger btn-sm">
+                <i class="fa fa-trash-o"></i> <span><%= __("Delete") %></span></button>
+        </form>
+        <% } %>
+
+    </section>
+    <!-- /.content -->
+</aside>
+<!-- /.right-side -->

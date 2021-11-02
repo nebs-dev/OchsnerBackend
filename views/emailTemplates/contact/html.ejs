@@ -1,0 +1,46 @@
+<table border="0" cellpadding="0">
+    <tbody>
+    <% if(locals.cardNumber) { %>
+    <tr>
+        <td><strong>nummer</strong></td>
+        <td><%= locals.cardNumber %></td>
+    </tr>
+    <% } %>
+    <% if(locals.gender) { %>
+    <tr>
+        <td><strong>anrede</strong></td>
+        <td><%= locals.gender %></td>
+    </tr>
+    <% } %>
+    <% if(locals.name) { %>
+    <tr>
+        <td><strong>vorname</strong></td>
+        <td><%= locals.name %></td>
+    </tr>
+    <% } %>
+    <% if(locals.lastname) { %>
+    <tr>
+        <td><strong>nachname</strong></td>
+        <td><%= locals.lastname %></td>
+    </tr>
+    <% } %>
+    <% if(locals.phone) { %>
+    <tr>
+        <td><strong>telefon</strong></td>
+        <td><%= locals.phone %></td>
+    </tr>
+    <% } %>
+    <% if(locals.email) { %>
+    <tr>
+        <td><strong>email</strong></td>
+        <td><a href="<%= locals.email %>" target="_blank"><%= locals.email %></a></td>
+    </tr>
+    <% } %>
+    <% if(locals.message) { %>
+    <tr>
+        <td><strong>anfrage</strong></td>
+        <td><%= locals.message %></td>
+    </tr>
+    <% } %>
+    </tbody>
+</table>

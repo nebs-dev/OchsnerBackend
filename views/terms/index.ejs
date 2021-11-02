@@ -1,0 +1,75 @@
+<!-- Right side column. Contains the navbar and content of the page -->
+<aside class="right-side" xmlns="http://www.w3.org/1999/html">
+    <!-- Content Header (Page header) -->
+    <section class="content-header clearfix">
+        <h1>
+            <%= __("Terms") %>
+            <small><%= __("languageLongName-" + language) %></small>
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <%- partial('../blocks/server-validation.ejs') %>
+
+        <form action="/terms/<%= language %>/update" enctype="multipart/form-data" method="post" class="validateForm">
+            <input type="hidden" name="termId" value="<%= terms.id %>">
+            <input type="hidden" name="_csrf" value="<%= _csrf %>">
+
+            <!-- Start Metadata -->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Default box -->
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title"><%= __("Metadata") %></h3>
+
+                            <div class="box-tools pull-right">
+                                <div class="label bg-green"><%= __("Published") %></div>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label for="termsTitle"><%= __("Terms title") %></label>
+                                        <input name="title" value="<%= terms.title %>" type="text" class="form-control" id="termsTitle" placeholder="<%= __("Enter a title for this terms") %>" required>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <input value="true" type="hidden" name="textReady[]" class="textReady" required>
+                                        <label for="termsDescription"><%= __("Description") %></label>
+                                        <textarea id="termsDescription" name="description" class="bootstrapEditor" placeholder="Place some text here"><%- terms.description %></textarea>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-3 vertical-center-container text-center" style="height: 188px;">
+                                    <div class="vertical-center">
+                                        <% if(checkPerms(req, "update", "terms")) { %>
+                                        <button type="submit" class="btn btn-app textareaCheck">
+                                            <i class="fa fa-save"></i> <%= __("Save") %>
+                                        </button>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- End Metadata -->
+
+        </form>
+
+
+    </section>
+    <!-- /.content -->
+</aside>
+<!-- /.right-side -->

@@ -1,0 +1,264 @@
+<table border="0" cellpadding="0">
+    <tbody>
+    <% if(locals.cardNumber) { %>
+    <tr>
+        <td><strong>nummer</strong></td>
+        <td><%= locals.cardNumber %></td>
+    </tr>
+    <% } %>
+    <% if(locals.gender) { %>
+    <tr>
+        <td><strong>anrede</strong></td>
+        <td><%= locals.gender %></td>
+    </tr>
+    <% } %>
+    <% if(locals.name) { %>
+    <tr>
+        <td><strong>vorname</strong></td>
+        <td><%= locals.name %></td>
+    </tr>
+    <% } %>
+    <% if(locals.lastname) { %>
+    <tr>
+        <td><strong>nachname</strong></td>
+        <td><%= locals.lastname %></td>
+    </tr>
+    <% } %>
+    <% if(locals.adress) { %>
+    <tr>
+        <td><strong>adresse1</strong></td>
+        <td><%= locals.adress %></td>
+    </tr>
+    <% } %>
+    <% if(locals.adressTwo) { %>
+    <tr>
+        <td><strong>adresse2</strong></td>
+        <td><%= locals.adressTwo %></td>
+    </tr>
+    <% } %>
+    <% if(locals.postcode) { %>
+    <tr>
+        <td><strong>plz</strong></td>
+        <td><%= locals.postcode %></td>
+    </tr>
+    <% } %>
+    <% if(locals.city) { %>
+    <tr>
+        <td><strong>ort</strong></td>
+        <td><%= locals.city %></td>
+    </tr>
+    <% } %>
+    <% if(locals.country) { %>
+    <tr>
+        <td><strong>land</strong></td>
+        <td><%= locals.country %></td>
+    </tr>
+    <% } %>
+    <% if(locals.phoneNumber) { %>
+    <tr>
+        <td><strong>telefon</strong></td>
+        <td><%= locals.phoneNumber %></td>
+    </tr>
+    <% } %>
+    <% if(locals.mobileNumber) { %>
+    <tr>
+        <td><strong>mobile</strong></td>
+        <td><%= locals.mobileNumber %></td>
+    </tr>
+    <% } %>
+    <% if(locals.email) { %>
+    <tr>
+        <td><strong>email</strong></td>
+        <td><a href="<%= locals.email %>" target="_blank"><%= locals.email %></a></td>
+    </tr>
+    <% } %>
+    <% if(locals.dateofbirth) { %>
+    <tr>
+        <td><strong>dateofbirth</strong>
+        </td>
+        <td><%= locals.dateofbirth %></td>
+    </tr>
+    <% } %>
+    <% if(locals.language) { %>
+    <tr>
+        <td><strong>sprache</strong></td>
+        <td><%= locals.language %></td>
+    </tr>
+    <% } %>
+    <% if(locals.online) { %>
+    <tr>
+        <td><strong>online</strong></td>
+        <td><%= locals.online %></td>
+    </tr>
+    <% } %>
+    <% if(locals.adults) { %>
+    <tr>
+        <td><strong>erwachsene</strong></td>
+        <td><%= locals.adults %></td>
+    </tr>
+    <% } %>
+    <% if(locals.children) { %>
+    <tr>
+        <td><strong>kinder</strong></td>
+        <td><%= locals.children %></td>
+    </tr>
+    <% } %>
+    <% if(locals.football) { %>
+    <tr>
+        <td><strong>football</strong></td>
+        <td><%= locals.football ? "on" : "off" %></td>
+    </tr>
+    <% } %>
+    <% if(locals.ski) { %>
+    <tr>
+        <td><strong>alpin</strong></td>
+        <td><%= locals.ski ? "on" : "off" %></td>
+    </tr>
+    <% } %>
+    <% if(locals.freeride) { %>
+    <tr>
+        <td><strong>freeride</strong></td>
+        <td><%= locals.freeride ? "on" : "off" %></td>
+    </tr>
+    <% } %>
+    <% if(locals.snowboard) { %>
+    <tr>
+        <td><strong>snowboard</strong></td>
+        <td><%= locals.snowboard ? "on" : "off" %></td>
+    </tr>
+    <% } %>
+    <% if(locals.running) { %>
+    <tr>
+        <td><strong>running</strong></td>
+        <td><%= locals.running ? "on" : "off" %></td>
+    </tr>
+    <% } %>
+    <% if(locals.outdoor) { %>
+    <tr>
+        <td><strong>outdoor</strong></td>
+        <td><%= locals.outdoor ? "on" : "off" %></td>
+    </tr>
+    <% } %>
+    <% if(locals.bike) { %>
+    <tr>
+        <td><strong>bike</strong></td>
+        <td><%= locals.bike ? "on" : "off" %></td>
+    </tr>
+    <% } %>
+    <% if(locals.fitness) { %>
+    <tr>
+        <td><strong>fitness</strong></td>
+        <td><%= locals.fitness ? "on" : "off" %></td>
+    </tr>
+    <% } %>
+    <% if(locals.indoor) { %>
+    <tr>
+        <td><strong>indoor</strong></td>
+        <td><%= locals.indoor ? "on" : "off" %></td>
+    </tr>
+    <% } %>
+    <% if(locals.tennis) { %>
+    <tr>
+        <td><strong>tennis</strong></td>
+        <td><%= locals.tennis ? "on" : "off" %></td>
+    </tr>
+    <% } %>
+    <% if(locals.swimming) { %>
+    <tr>
+        <td><strong>swimming</strong></td>
+        <td><%= locals.swimming ? "on" : "off" %></td>
+    </tr>
+    <% } %>
+    <% if(locals.athletics) { %>
+    <tr>
+        <td><strong>athletics</strong></td>
+        <td><%= locals.athletics ? "on" : "off" %></td>
+    </tr>
+    <% } %>
+    <% if(locals.gymnastics) { %>
+    <tr>
+        <td><strong>gymnastics</strong></td>
+        <td><%= locals.gymnastics ? "on" : "off" %></td>
+    </tr>
+    <% } %>
+    <% if(locals.otherSports) { %>
+    <tr>
+        <td><strong>other_sports</strong>
+        </td>
+        <td><%= locals.otherSports ? "on" : "off" %></td>
+    </tr>
+    <% } %>
+    <% if(locals.moreSports) { %>
+    <tr>
+        <td><strong>more_sports</strong></td>
+        <td><%= locals.moreSports %></td>
+    </tr>
+    <% } %>
+    <% if(locals.footballInland) { %>
+    <tr>
+        <td><strong>ch_football_inland:</strong></td>
+        <td><%= locals.footballInland ? "on" : "off" %></td>
+    </tr>
+    <% } %>
+    <% if(locals.favouriteLocalTeam) { %>
+    <tr>
+        <td><strong>favorite</strong></td>
+        <td><%= locals.favouriteLocalTeam %></td>
+    </tr>
+    <% } %>
+    <% if(locals.nationalFootball) { %>
+    <tr>
+        <td><strong>ch_football</strong></td>
+        <td><%= locals.nationalFootball ? "on" : "off" %></td>
+    </tr>
+    <% } %>
+    <% if(locals.nationalSki) { %>
+    <tr>
+        <td><strong>ch_ski</strong></td>
+        <td><%= locals.nationalSki ? "on" : "off" %></td>
+    </tr>
+    <% } %>
+    <% if(locals.nationalRunning) { %>
+    <tr>
+        <td><strong>ch_running</strong></td>
+        <td><%= locals.nationalRunning ? "on" : "off" %></td>
+    </tr>
+    <% } %>
+    <% if(locals.nationalAthletics) { %>
+    <tr>
+        <td><strong>ch_athletics:</strong></td>
+        <td><%= locals.nationalAthletics ? "on" : "off" %></td>
+    </tr>
+    <% } %>
+    <% if(locals.sportReisen) { %>
+    <tr>
+        <td><strong>ch_trips</strong></td>
+        <td><%= locals.sportReisen ? "on" : "off" %></td>
+    </tr>
+    <% } %>
+    <% if(locals.yourTeam) { %>
+    <tr>
+        <td><strong>club</strong></td>
+        <td><%= locals.yourTeam %></td>
+    </tr>
+    <% } %>
+    <% if(locals.cardPicture) { %>
+    <tr>
+        <td><strong>sujet</strong></td>
+        <td><%= locals.cardPicture %></td>
+    </tr>
+    <% } %>
+
+    <tr>
+        <td><strong>agb</strong></td>
+        <td><%= locals.terms ? "agb" : "off" %></td>
+    </tr>
+
+
+    <tr>
+        <td><strong>info</strong></td>
+        <td><%= locals.newsletter ? "news" : "no_news" %></td>
+    </tr>
+
+    </tbody>
+</table>

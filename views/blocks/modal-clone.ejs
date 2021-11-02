@@ -1,0 +1,16 @@
+<div class="modal-clone avgrund hideIt">
+    <div class="avgrund-container">
+        <h4><%= __("Select clone language") %></h4>
+
+
+        <p><%= __("To which language to you want to clone this?") %></p>
+
+        <button class="btn btn-default pull-left" onclick='$(".avgrund-close").click();'><%= __('Cancel') %></button>
+
+        <div class="button-holder pull-right">
+            <button class="btn btn-info" onclick='document.avgrundAnswer = "de"; $(".avgrund-close").click();'><%= __('German') %></button>
+            <button class="btn btn-info" onclick='document.avgrundAnswer = "fr"; $(".avgrund-close").click();'><%= __('French') %></button>
+            <button class="btn btn-info" onclick='document.avgrundAnswer = "it"; $(".avgrund-close").click();'><%= __('Italian') %></button>
+        </div>
+    </div>
+</div>

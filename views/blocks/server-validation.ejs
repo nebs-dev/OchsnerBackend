@@ -1,0 +1,14 @@
+<% if(flash && (flash.err || flash.success)) { %>
+<div class="box-body">
+    <% if(flash.err) { %>
+    <div class="alert alert-danger alert-dismissable">
+        <% } else if(flash.success) { %>
+        <div class="alert alert-success alert-dismissable">
+            <% } %>
+            <i class="fa fa-check"></i>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <%= flash.err || flash.success %>
+        </div>
+    </div>
+    <!-- /.box-body -->
+<% } %>

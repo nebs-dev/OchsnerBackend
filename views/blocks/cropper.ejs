@@ -1,0 +1,99 @@
+<% var update = locals.update ||false %>
+<div class="row cropingArea">
+    <div class="col-md-12">
+        <!-- Default box -->
+        <div class="box collapsed-box">
+            <div class="box-header">
+                <h3 class="box-title"><%= title %></h3>
+
+                <div class="box-tools pull-right">
+                    <ul class="list-unstyled pull-left cropperStatus">
+                        <li class="cropperNotSet <%= (update && currentQuery.devices[device]) ? "hideIt" : "" %>">
+                            <div class="label bg-aqua"><%= __("Not set") %></div>
+                        </li>
+                        <li class="cropperSet <%= (update && currentQuery.devices[device]) ? "" : "hideIt" %>">
+                            <div class="label bg-green"><%= __("Image OK!") %></div>
+                        </li>
+                        <li class="cropperSmallImage hideIt">
+                            <div class="label bg-yellow"><%= __("Image is small") %></div>
+                        </li>
+                        <li class="cropperError hideIt">
+                            <div class="label bg-red"><%= __("Not set") %></div>
+                        </li>
+                    </ul>
+                    <button class="pull-right btn btn-default btn-sm preventDefault" data-widget="collapse">
+                        <i class="fa fa-plus"></i></button>
+                </div>
+            </div>
+            <div class="box-body hideIt">
+                <div class="row">
+                    <div class="col-md-7">
+                        <!-- Primary box -->
+                        <div class="box box-primary">
+                            <div class="box-header"
+                            <h3 class="box-title"><%= __("Image Configuration") %></h3>
+                        </div>
+                        <div class="box-body">
+                            <p class="<%= (update && !forceUpdate) ? "updateDisable hideIt" : "" %>">
+                                <%= __("Minimum width for %s images is", device) %> <%= deviceWidth + "px x " + deviceHeight + "px" %>
+                            </p>
+
+                            <div class="form-group <%= (update && !forceUpdate) ? "updateDisable hideIt" : "" %>">
+                                <span class="btn btn-success btn-file">
+                                    <i class="fa fa-file-image-o"></i> <%= __("Select a file for upload") %> <input id="<%= device %>Upload" type="file" class="cropBrowseImage device-<%= device %>">
+                                </span>
+                                <input type="hidden" class="devicePic device-<%= device %>" name="devicePic[]">
+                                <input value="<%= (update && currentQuery.devices[device]) ? "true" : "" %>" type="hidden" class="imageReady" name="imageReady[]" required>
+
+                                <% if(device !== "iPhone6plus") { %>
+                                <button class="btn btn-info reuseLargestPicture forceDisable" disabled><i class="fa fa-recycle"></i> <%= __("Reuse iPhone 6 plus picture") %></button>
+                                <% } %>
+                            </div>
+
+                            <div class="cropContainer">
+                                <img class="cropperInitImage <%= (update && currentQuery.devices[device]) ? "hideIt" : "" %>" src="/images/placeholder.jpg"/>
+                                <img src="<%= (update && currentQuery.devices[device]) ? ("/" + currentQuery.devices[device].url || "") : "" %>" class="cropperImage <%= (update && !forceUpdate) ? "notActive" : "" %> <%= (update && forceUpdate) ? "updateActive" : "" %>" data-preview=".<%= device %>-preview" data-device="<%= device %>" data-devicewidth="<%= deviceWidth %>" data-deviceheight="<%= deviceHeight %>">
+                            </div>
+
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <small class="cropperImageInfo device-<%= device %>"></small>
+                        </div>
+                        <!-- /.box-footer-->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+
+                <div class="col-md-5">
+                    <!-- Info box -->
+                    <div class="box box-info red-border">
+                        <div class="box-header">
+                            <h3 class="box-title"><%= __("Preview") %>
+                                <small><%= title %></small>
+                            </h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="cropPreviewContainer <%= previewTemplate %> <%= device %> center-block">
+                                <div class="<%= device %>-preview"></div>
+                                <% if(previewTemplate === "empty") { %>
+                                <div class="preview-object-text">
+                                    <strong class="preview-title"><%= update ? currentQuery.title : __("Title") %></strong>
+
+                                    <div class="preview-description <%= (update && currentQuery.description) ? "preview-populate" : "" %>"><%= __("Description text") %></div>
+                                </div>
+                                <% } %>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>

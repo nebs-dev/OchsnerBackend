@@ -1,0 +1,114 @@
+<!-- Right side column. Contains the navbar and content of the page -->
+<aside class="right-side" xmlns="http://www.w3.org/1999/html">
+    <!-- Content Header (Page header) -->
+    <section class="content-header clearfix">
+        <h1>
+
+            <%
+            var action = "create";
+            var update = locals.update || false;
+            var forceUpdate = locals.forceUpdate || false;
+
+
+
+            if(update) {
+                action = "update";
+                message.devices = message.devices || {};
+            %>
+            <%= message.title %>
+            <% } else { %>
+            <%= __("Create New Message") %>
+            <% } %>
+            <small><%= __("languageLongName-" + language) %></small>
+
+        </h1>
+        <div class="header-actions">
+            <% if(checkPerms(req, "create", "dailymessages")) { %>
+            <a class="btn btn-success btn-sm" href="/messages/<%= language %>/new"> <i class="fa fa-edit"></i>
+                <span><%= __("Add new") %></span> </a>
+            <% } %>
+        </div>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <%- partial('../blocks/modal-smallImage.ejs') %>
+        <%- partial('../blocks/server-validation.ejs') %>
+
+        <form action="/messages/<%= language %>/<%= action %>" enctype="multipart/form-data" method="post" class="validateForm">
+            <input type="hidden" name="language" value="<%= language %>">
+            <input type="hidden" name="_csrf" value="<%= _csrf %>">
+            <% if(update) { %>
+            <input type="hidden" name="id" value="<%= message.id %>">
+            <% } %>
+
+            <!-- Start Metadata -->
+            <div class="row">
+
+                <div class="col-md-12">
+                    <!-- Default box -->
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title"><%= __("Metadata") %></h3>
+
+                            <div class="box-tools pull-right">
+                                <% if (update) { %>
+                                <div class="label bg-green"><%= __("Published") %></div>
+                                <% } else { %>
+                                <div class="label bg-yellow"><%= __("Draft") %></div>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label for="messageTitle"><%= __("Message title") %></label>
+                                        <input <%= (update && !forceUpdate) ? "disabled" : "" %> value="<%= update ? message.title : "" %>" name="title" type="text" class="form-control text-preview-title" id="messageTitle" placeholder="<%= __("Enter a title for this message") %>" required>
+
+                                        <p class="help-block"><%= __("This title is for use in the backend only. It will not be displayed inside the app.") %></p>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="messageDescription"><%= __("Description") %> - <span class="charCount"></span></label>
+                                        <textarea <%= (update && !forceUpdate) ? "disabled" : "" %> rows="3" maxlength="100" id="messageDescription" name="description" class="charCountTextArea form-control" placeholder="<%= __("Place some text here") %>"><%= update ? message.description : "" %></textarea>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-3 vertical-center-container text-center" style="height: 188px;">
+                                    <div class="vertical-center">
+
+                                        <% if(checkPerms(req, "update", "dailymessages")) { %>
+                                        <button type="submit" class="btn btn-app editButton <%= (!update || (update && forceUpdate)) ? "hide" : "" %>">
+                                            <i class="fa fa-edit"></i> <%= __("Edit") %>
+                                        </button>
+                                        <% } %>
+
+                                        <% if(checkPerms(req, "create", "messages") || (update && checkPerms(req, "update", "dailymessages"))) { %>
+                                        <button type="submit" class="btn btn-app saveButton <%= (update && !forceUpdate) ? "hide" : "" %>">
+                                            <i class="fa fa-save"></i> <%= __("Save") %>
+                                        </button>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- End Metadata -->
+
+
+        </form>
+
+
+    </section>
+    <!-- /.content -->
+</aside>
+<!-- /.right-side -->

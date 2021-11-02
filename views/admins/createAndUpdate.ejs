@@ -1,0 +1,148 @@
+<!-- Right side column. Contains the navbar and content of the page -->
+<aside class="right-side" xmlns="http://www.w3.org/1999/html">
+    <!-- Content Header (Page header) -->
+    <section class="content-header clearfix">
+        <h1>
+            <%
+            var action = "create";
+            var update = locals.update || false;
+            var forceUpdate = locals.forceUpdate || false;
+
+            if(update) {
+                action = "update";
+            %>
+            <%= admin.name + " " + admin.surname %>
+            <small><%= admin.username %></small>
+            <% } else { %>
+            <%= __("Create New Admin") %>
+            <% } %>
+        </h1>
+        <div class="header-actions">
+            <% if(checkPerms(req, "create", "admins")) { %>
+            <a class="btn btn-success btn-sm" href="/admins/new"> <i class="fa fa-edit"></i>
+                <span><%= __("Add new") %></span> </a>
+            <% } %>
+        </div>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <%- partial('../blocks/modal-smallImage.ejs') %>
+        <%- partial('../blocks/server-validation.ejs') %>
+
+        <form action="/admins/<%= action %>" enctype="multipart/form-data" method="post" class="validateForm">
+            <input type="hidden" name="_csrf" value="<%= _csrf %>">
+            <% if(update) { %>
+            <input type="hidden" name="id" value="<%= admin.id %>">
+            <% } %>
+
+            <!-- Start Metadata -->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Default box -->
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title"><%= __("Admin info") %></h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label for="adminName"><%= __("Name") %></label>
+                                        <input <%= (update && !forceUpdate) ? "disabled" : "" %> value="<%= update ? admin.name : "" %>" name="name" type="text" class="form-control" id="adminName" placeholder="<%= __("Name") %>" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="adminSurname"><%= __("Surname") %></label>
+                                        <input <%= (update && !forceUpdate) ? "disabled" : "" %> value="<%= update ? admin.surname : "" %>" name="surname" type="text" class="form-control" id="adminSurname" placeholder="<%= __("Surname") %>" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="adminUsername"><%= __("Username") %></label>
+                                        <input <%= /*(update && !forceUpdate)*/ update ? "disabled" : "" %> value="<%= update ? admin.username : "" %>" name="username" type="text" class="form-control forceDisable" id="adminUsername" placeholder="<%= __("Username") %>" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="adminEmail"><%= __("Email") %></label>
+                                        <input <%= /*(update && !forceUpdate)*/ update ? "disabled" : "" %> value="<%= update ? admin.email : "" %>" name="email" type="email" class="form-control forceDisable" id="adminEmail" placeholder="your@email.com" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="adminLanguage"><%= __("Language") %></label>
+                                        <select <%= (update && !forceUpdate) ? "disabled" : "" %> id="adminLanguage" class="form-control" name="language" required>
+                                            <option value="">Select language</option>
+                                            <option <%= (update && admin.language === "en") ? "selected" : "" %> value="en">
+                                                English
+                                            </option>
+                                            <option <%= (update && admin.language === "de") ? "selected" : "" %> value="de">
+                                                Deutsch
+                                            </option>
+                                            <option <%= (update && admin.language === "fr") ? "selected" : "" %> value="fr">
+                                                French
+                                            </option>
+                                            <option <%= (update && admin.language === "it") ? "selected" : "" %> value="it">
+                                                Italian
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <% if(!update || (update && !admin.superAdmin)) { %>
+
+                                    <div class="form-group">
+                                        <label for="adminRole"><%= __("Role") %></label>
+                                        <select <%= (update && !forceUpdate) ? "disabled" : "" %> class="form-control" name="permissions" required>
+                                            <option value=""><%= __("Select role") %></option>
+                                            <% _.each(permissions, function(permission) { %>
+                                            <option <%= (update && admin.permissions.id === permission.id) ? "selected" : "" %> value="<%= permission.id %>"><%= permission.title %></option>
+                                            <% }); %>
+                                        </select>
+                                    </div>
+
+                                    <% } %>
+
+                                    <div class="row form-group">
+                                        <div class="col-sm-6">
+                                            <label for="inputPassword">Password</label>
+                                            <input <%= (update && !forceUpdate) ? "disabled" : "" %> name="password" type="password" data-minlength="6" class="form-control" id="inputPassword" placeholder="Password" <%= update ? "" : "required" %>>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="inputPasswordConfirm">Password confirmation</label>
+                                            <input <%= (update && !forceUpdate) ? "disabled" : "" %> name="confirmation" type="password" class="form-control" id="inputPasswordConfirm" data-match="#inputPassword" placeholder="Confirm" <%= update ? "" : "required" %>>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-md-3 vertical-center-container text-center" style="height: 188px;">
+                                    <div class="vertical-center">
+                                        <% if(checkPerms(req, "update", "admins")) { %>
+                                        <button type="submit" class="btn btn-app editButton <%= (!update || (update && forceUpdate)) ? "hide" : "" %>">
+                                            <i class="fa fa-edit"></i> Edit
+                                        </button>
+                                        <% } %>
+
+                                        <% if(checkPerms(req, "create", "admins") || (update && checkPerms(req, "update", "admins"))) { %>
+                                        <button type="submit" class="btn btn-app saveButton <%= (update && !forceUpdate) ? "hide" : "" %>">
+                                            <i class="fa fa-save"></i> Save
+                                        </button>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- End Metadata -->
+        </form>
+
+
+    </section>
+    <!-- /.content -->
+</aside>
+<!-- /.right-side -->

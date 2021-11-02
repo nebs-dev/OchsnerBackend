@@ -1,0 +1,104 @@
+<!-- Right side column. Contains the navbar and content of the page -->
+<aside class="right-side">
+  <!-- Content Header (Page header) -->
+  <section class="content-header clearfix">
+    <h1>
+      <%= __("AppOptions") %>
+      <small><%= __("languageLongName-" + language) %></small>
+    </h1>
+    <div class="header-actions">
+      <% if(checkPerms(req, "create", "appOptions")) { %>
+      <a class="btn btn-success btn-sm" href="/appOptions/<%= language %>/new"> <i class="fa fa-edit"></i>
+        <span><%= __("Add new") %></span> </a>
+      <% } %>
+    </div>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <%- partial('../blocks/modal-destroy.ejs') %>
+    <%- partial('../blocks/modal-clone.ejs') %>
+    <%- partial('../blocks/server-validation.ejs') %>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <div class="box-body table-responsive no-padding">
+            <table class="table table-hover table-sorter" data-csfr="<%= _csrf %>" data-update="/appOptions/<%= language %>/sort">
+              <tr>
+                <% if(checkPerms(req, "update", "appOptions")) { %>
+                <th><%= __("Sort") %></th>
+                <% } %>
+                <th><%= __("Thumbnail") %></th>
+                <th><%= __("Title") %></th>
+                <th class="table-status"><%= __("Status") %></th>
+                <th class="table-actions"><%= __("Actions") %></th>
+              </tr>
+              <% _.each(appOptions, function(appOption) { %>
+              <tr class="sortable-item" id="<%= appOption.id %>">
+                <% if(checkPerms(req, "update", "appOptions")) { %>
+                <td class="table-sort-handle enabled">
+                  <span class="sortDone"><i class="fa fa-arrows-v"></i></span>
+                  <span class="sortProgress hideIt"><i class="fa fa-cog fa-spin"></i></span>
+                </td>
+                <% } %>
+                <td class="table-thumbnail">
+                  <% if(checkPerms(req, "view", "appOptions")) { %>
+                  <a href="/appOptions/<%= language %>/<%= appOption.slug %>">
+                    <% if(!sails.config.localhost && appOption.images[0]) { %>
+                    <img src="/<%= appOption.images[0].url %>?dim=220x100">
+                    <% } else { %>
+                    <%= __("no image") %>
+                    <% } %>
+                  </a>
+                  <% } else { %>
+                  <% if(!sails.config.localhost && appOption.images[0]) { %>
+                  <img src="/<%= appOption.images[0].url %>?dim=220x100">
+                  <% } else { %>
+                  <%= __("no image") %>
+                  <% } %>
+                  <% } %>
+                </td>
+                <td class="table-title">
+                  <% if(checkPerms(req, "view", "appOptions")) { %>
+                  <a href="/appOptions/<%= language %>/<%= appOption.slug %>"><%= appOption.title %></a>
+                  <% } else { %>
+                  <%= appOption.title %>
+                  <% } %>
+                </td>
+                <td class="table-status"><span class="label label-success"><%= __("Published") %></span>
+                </td>
+                <td class="table-actions">
+                  <% if(checkPerms(req, "update", "appOptions")) { %>
+                  <a class="btn btn-success btn-sm" href="/appOptions/<%= language %>/<%= appOption.slug %>?update=true">
+                    <i class="fa fa-edit"></i> <span><%= __("Edit") %></span> </a>
+                  <% } %>
+
+                  <% if(req.session.Admin.superAdmin) { %>
+                    <% if(checkPerms(req, "create", "appOptions")) { %>
+                    <a class="btn btn-info btn-sm cloneObj" data-clone="/appOptions/<%= language %>/clone/<%= appOption.id %>" href="#">
+                      <i class="fa  fa-puzzle-piece"></i> <span><%= __("Clone") %></span> </a>
+                    <% } %>
+
+
+                    <% if(checkPerms(req, "delete", "appOptions")) { %>
+                    <a class="btn btn-danger btn-sm deleteObj" data-delete="/appOptions/<%= language %>/delete/<%= appOption.id %>" href="#">
+                      <i class="fa fa-trash-o"></i> <span><%= __("Delete") %></span> </a>
+                    <% } %>
+                  <% } %>
+                </td>
+              </tr>
+              <% }); %>
+            </table>
+          </div>
+          <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+      </div>
+    </div>
+
+
+  </section>
+  <!-- /.content -->
+</aside>
+<!-- /.right-side -->

@@ -1,0 +1,14 @@
+<div class="modal-smallImage avgrund hideIt">
+    <div class="avgrund-container">
+        <h4><%= __('Image too small') %></h4>
+
+        <p><%= __('Minimum image size for this device is:') %> <span class="avgrund-data"></span><br>
+            <%= __('If you use this image, it will be less pretty :D') %></p>
+
+
+        <div class="button-holder">
+            <button class="btn btn-default" onclick='$(".avgrund-close").click();'><%= __('Cancel') %></button>
+            <button class="btn btn-danger" onclick='document.avgrundAnswer = true; $(".avgrund-close").click();'><%= __('Force upload') %></button>
+        </div>
+    </div>
+</div>
